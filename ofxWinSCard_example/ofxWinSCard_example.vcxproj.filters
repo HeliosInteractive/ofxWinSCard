@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\testApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SmartCardReader.cpp">
+      <Filter>ofxWinSCard\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ofxWinSCard">
+      <UniqueIdentifier>{1a42ea7a-a0d6-4e41-b3c8-0149720521fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ofxWinSCard\src">
+      <UniqueIdentifier>{6da8bd89-d236-4216-b1cc-0bbfab01d8fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ofxWinSCard\libs">
+      <UniqueIdentifier>{98d5d385-d617-4be1-98f3-952cb88088cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ofxWinSCard\libs\winscard">
+      <UniqueIdentifier>{a778b820-30df-4aef-9024-9cecfe7ca1ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ofxWinSCard\libs\winscard\include">
+      <UniqueIdentifier>{9f7caf50-9e73-4b8c-aefc-b05fe373a5db}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\testApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\winscard\include\WINSCARD.H">
+      <Filter>ofxWinSCard\libs\winscard\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SmartCardReader.h">
+      <Filter>ofxWinSCard\src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+</Project>
