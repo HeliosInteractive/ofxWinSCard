@@ -3,9 +3,8 @@
 //--------------------------------------------------------------
 void testApp::setup()
 {
-	cardReader.setup( "ACS ACR122 0") ; 
-	//cardReader.getStatus( ) ; 
-	//cardReader.getCardUID() ; 
+	cardReader.setup( "ACS ACR122 0" ) ; //, SCARD_PCI_T1 ) ;  
+	
 }
 
 //--------------------------------------------------------------
@@ -16,6 +15,7 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 	stringstream ss ; 
+	//ss << "READER STATUS - " << cardReader.getStatus() << endl ; 
 	ss << "U - get card UID" << endl ; 
 	ss << "E - export card UIDs read" << endl ; 
 	ss << "scanned card history... " << endl; 
@@ -54,6 +54,7 @@ void testApp::keyPressed(int key){
 	{
 		case 'u':
 		case 'U':
+			cardReader.connect() ; 
 			cardResponse = cardReader.getCardUID() ; 
 			if ( cardResponse != "" ) 
 			{

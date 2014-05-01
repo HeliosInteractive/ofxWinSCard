@@ -143,7 +143,7 @@ void SmartCardReader::connect( )
 	//sprintf( buffer1, "%s %s \n", "Successful connection to ", buffer2 );
 }
 
-bool SmartCardReader::getStatus ( ) 
+string SmartCardReader::getStatus ( ) 
 {
 	int index;
 	char tempstr[262];
@@ -165,6 +165,7 @@ bool SmartCardReader::getStatus ( )
 	if(retCode != SCARD_S_SUCCESS)
 	{
 		ofLogError( "TRANSMIT failure!" ) ; 
+		return "TRANSMIT FAILED" ; 
 		return false ; 
 	}
 	else
@@ -178,7 +179,7 @@ bool SmartCardReader::getStatus ( )
 	for(index = 0; index < RecvLen; index++)
 	{
 	
-		sprintf( tempstr, "%s%02X", tempstr, RecvBuff[index] );
+	//	sprintf( tempstr, "%s%02X", tempstr, RecvBuff[index] );
 	
 	}
 
@@ -187,7 +188,7 @@ bool SmartCardReader::getStatus ( )
 	
 		//no tag is in the field
 		ofLogNotice( "> No tag is in the field: %02X" ) ; //, RecvBuff[1] );
-		return false ; 
+		return "No tag is in the field" ; 
 		//ofLogNotice( tempstr2 ) ; 
 		//DisplayOut( tempstr2, BLACK ); 
 	
@@ -206,13 +207,15 @@ bool SmartCardReader::getStatus ( )
 		{
 		
 			ofLogNotice( "> External RF field is Present and detected: %02X" ) ; //, RecvBuff[3]);
+			return "External RF field is Present and detected" ; 
 			//DisplayOut( tempstr2, BLACK );
 		
 		}
 		else
 		{
-			return false ; 
+			
 			ofLogNotice( "> External RF field is NOT Present and NOT detected: %02X" ) ; //, RecvBuff[3]);
+			return "External RF field is NOT Present and NOT detected" ; 
 			//DisplayOut( tempstr2, BLACK );
 		
 		}
@@ -282,7 +285,7 @@ bool SmartCardReader::getStatus ( )
 		
 		}
 	}
-	return true ; 
+	return "all good" ; 
 }
 
 int SmartCardReader::transmit( ) 
@@ -347,6 +350,7 @@ int SmartCardReader::transmit( )
 
 string SmartCardReader::getCardUID ( )
 {
+	clearBuffers() ; 
 	 // Get Data: CLA = 0xFF, INS = 0xCA, P1 = 0x00, P2 = 0x00, Le = 0x00
     BYTE baCmdApduGetData[] = { 0xFF, 0xCA, 0x00, 0x00, 0x00};
 	BYTE baResponseApdu[300];    
@@ -395,9 +399,9 @@ string SmartCardReader::getCardUID ( )
 	//PCSC_STATUS(lRetValue,"SCardTransmit");	
 	
 	
-	printHexString( "\n   --> C-Apdu: 0x",(LPBYTE)pbSendBuffer, cbSendLength ) ;	
-	printHexString(  "   <-- R-Apdu: 0x",pbRecvBuffer, *pcbRecvLength );
-	printf("       SW1SW2: 0x%02X%02X\n\n",pbRecvBuffer[*pcbRecvLength - 2], pbRecvBuffer[*pcbRecvLength - 1]); 
+	//printHexString( "\n   --> C-Apdu: 0x",(LPBYTE)pbSendBuffer, cbSendLength ) ;	
+	//printHexString(  "   <-- R-Apdu: 0x",pbRecvBuffer, *pcbRecvLength );
+	//printf("       SW1SW2: 0x%02X%02X\n\n",pbRecvBuffer[*pcbRecvLength - 2], pbRecvBuffer[*pcbRecvLength - 1]); 
 	
 
 	/* Found on Stack Overflow 
@@ -410,10 +414,6 @@ string SmartCardReader::getCardUID ( )
 	{
 		toHex << std::setw(2) << static_cast<unsigned>( baResponseApdu[i] ) ;	
 	}
-
-	ofBuffer buffer ; 
-	buffer.set( ofToUpper( toHex.str() ) ) ; 
-	ofBufferToFile( "token.txt" , buffer , false ) ; 
 
 	 if( baResponseApdu[lResponseApduLen - 2] == 0x90 &&
         baResponseApdu[lResponseApduLen - 1] == 0x00)

@@ -16,7 +16,7 @@ public :
 	void connect( ) ; 
 	void listAllReaders( ) ; 
 	void clearBuffers( ) ; 
-	bool getStatus( ) ;
+	string getStatus( ) ;
 	string getCardUID( ) ; 
 	int transmit( ) ; 
 
